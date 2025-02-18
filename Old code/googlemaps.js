@@ -52,8 +52,8 @@ window.onload = function () {
     chatInput.style.height = '40px';
   
     // Anropa OpenAI API via Azure
-    const azureUrl = "https://sivai.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview";
-    const apiKey = "8I2sXTQQg7GSzi0KpoXX2Ej2AIheZGXaU7y3oyVwyFC86JUlIKzpJQQJ99BBACfhMk5XJ3w3AAABACOGZsMD"; // Byt ut mot din riktiga API-nyckel
+    const azureUrl = "https://simon-m7ac1dfj-eastus2.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview";
+    const apiKey = "Dsjf0r3JoyJ0NpHv4h19nwOGaM6jpj3CsynXkHVR4Ly90AWU8W2oJQQJ99BBACHYHv6XJ3w3AAAAACOGYTOV"; // Byt ut mot din riktiga API-nyckel
   
     try {
       const response = await fetch(azureUrl, {
