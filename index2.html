@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolycka - Travel Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQw880YxqqW3xIuQN3WIR3fEhT5h3gOPA&callback=initMap"></script>
+</head>
+<body id="bas">
+  <header>
+    <div class="logo">Bolycka</div>
+    <nav>
+      <ul>
+        <li><a href="#info">Info</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div id="map"></div>
+
+    <div id="chat">
+      <div id="chat-window">
+        <div class="message ai-message">Hello! I'm your travel assistant. Ask me anything about destinations!</div>
+      </div>
+
+      <div id="chat-input-container">
+        <label for="image-upload" class="upload-btn">+</label>
+        <input type="file" id="image-upload" accept="image/*">
+        <textarea id="chat-input" placeholder="Type your message..." rows="1"></textarea>
+        <button id="send-button">▶</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="googlemaps.js"></script>
+</body>
+</html>
