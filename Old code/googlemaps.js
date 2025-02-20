@@ -1,24 +1,34 @@
 // Vänta på att hela sidan laddas innan vi kör Google Maps
-window.onload = function () {
-    initMap();
-  };
+//window.onload = function () {
+  //  initMap();
+  //};
   
-  // Initialize Google Maps
-  let map;
-  
-  function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 51.505, lng: -0.09 },
-      zoom: 13,
-      mapTypeId: 'hybrid'
-    });
-  
-    new google.maps.Marker({
-      position: { lat: 51.505, lng: -0.09 },
-      map,
-      title: "London is a great place to visit!",
-    });
-  }
+  // Sätt standardikoner
+  delete L.Icon.Default.prototype._getIconUrl;
+
+  L.Icon.Default.mergeOptions({
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
+  });
+
+
+     // Hämta kartan
+     var map = L.map('map').setView([40.7128, -74.0060], 13); // New York City
+
+     // Openstreetmap tiles
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+     }).addTo(map);
+
+     // Lägg in markör.
+     L.marker([40.7128, -74.0060]).addTo(map)
+         .bindPopup('Hello from NYC!')
+         .openPopup();
+
+    //lokalisera användare
+    map.locate({ setView: true, maxZoom: 16 });
+
   
   // Hämta element
   const chatInput = document.getElementById('chat-input');
@@ -98,10 +108,5 @@ window.onload = function () {
       chatWindow.innerHTML += `<div class="message user-message">📎 ${file.name}</div>`;
     }
   });
-  
-  // Lägga till mörkt/ljust tema
-  const themeToggle = document.getElementById('theme-toggle');
-  themeToggle.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark-mode');
-  });
+
   

@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bolycka - Travel Assistant</title>
   <link rel="stylesheet" href="styles.css">
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQw880YxqqW3xIuQN3WIR3fEhT5h3gOPA&callback=initMap"></script>
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
 </head>
 <body id="bas">
   <header>
@@ -19,22 +23,28 @@
   </header>
 
   <main class="container">
+    <!-- Karta -->
     <div id="map"></div>
 
+    <!-- Chat -->
     <div id="chat">
       <div id="chat-window">
-        <div class="message ai-message">Hello! I'm your travel assistant. Ask me anything about destinations!</div>
+        <div class="message ai-message">
+          Hello! I'm your travel assistant. Ask me anything about destinations!
+        </div>
       </div>
-
       <div id="chat-input-container">
         <label for="image-upload" class="upload-btn">+</label>
-        <input type="file" id="image-upload" accept="image/*">
+        <input type="file" id="image-upload" accept="image/*" />
         <textarea id="chat-input" placeholder="Type your message..." rows="1"></textarea>
         <button id="send-button">▶</button>
       </div>
     </div>
   </main>
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Din egen JS-fil -->
   <script src="googlemaps.js"></script>
 </body>
 </html>
