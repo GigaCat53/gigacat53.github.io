@@ -14,20 +14,38 @@
 
 
      // Hämta kartan
-     var map = L.map('map').setView([40.7128, -74.0060], 13); // New York City
+     var map = L.map('map').setView([ 62, 16], 5); // New York City
 
      // Openstreetmap tiles
      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
      }).addTo(map);
 
-     // Lägg in markör.
-     L.marker([40.7128, -74.0060]).addTo(map)
-         .bindPopup('Hello from NYC!')
-         .openPopup();
 
     //lokalisera användare
-    map.locate({ setView: true, maxZoom: 16 });
+    //map.locate({ setView: true, maxZoom: 16 });
+// Kolla om geolocation är tillgängligt
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            // Flytta kartan till användarens plats
+            map.setView([lat, lng], 13);
+
+            // Lägg till en markör på platsen
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup('Du är här!')
+                .openPopup();
+        },
+        () => {
+            alert('Kunde inte hämta din plats.');
+        }
+    );
+  } else {
+    alert('Geolocation stöds inte i din webbläsare.');
+  }
 
   
   // Hämta element
