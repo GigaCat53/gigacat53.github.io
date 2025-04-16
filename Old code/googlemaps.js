@@ -13,14 +13,24 @@
   });
 
 
+<<<<<<< HEAD
      // Hämta kartan
      var map = L.map('map').setView([ 62, 16], 5); // New York City
+=======
+    // Skapa kartan och sätt defaultposition (ex. centrera Sverige)
+const map = L.map('map').setView([62, 16], 5); // Stockholm som default
+>>>>>>> 3e0efa79d323f42732916d0465dc08dcdd0ccb5f
 
      // Openstreetmap tiles
      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
      }).addTo(map);
+// Lägg till tile layer (OpenStreetMap)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
 
+<<<<<<< HEAD
 
     //lokalisera användare
     //map.locate({ setView: true, maxZoom: 16 });
@@ -31,6 +41,15 @@
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
 
+=======
+// Kolla om geolocation är tillgängligt
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+>>>>>>> 3e0efa79d323f42732916d0465dc08dcdd0ccb5f
             // Flytta kartan till användarens plats
             map.setView([lat, lng], 13);
 
@@ -43,9 +62,15 @@
             alert('Kunde inte hämta din plats.');
         }
     );
+<<<<<<< HEAD
   } else {
     alert('Geolocation stöds inte i din webbläsare.');
   }
+=======
+} else {
+    alert('Geolocation stöds inte i din webbläsare.');
+}
+>>>>>>> 3e0efa79d323f42732916d0465dc08dcdd0ccb5f
 
   
   // Hämta element
