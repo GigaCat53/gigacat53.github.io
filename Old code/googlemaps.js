@@ -1,9 +1,4 @@
-// Vänta på att hela sidan laddas innan vi kör Google Maps
-//window.onload = function () {
-  //  initMap();
-  //};
-  
-  // Sätt standardikoner
+
   delete L.Icon.Default.prototype._getIconUrl;
 
   L.Icon.Default.mergeOptions({
@@ -12,15 +7,13 @@
     shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
   });
 
+const map = L.map('map').setView([62, 16], 5); // Stockholm som default view på kartan
 
-    // Skapa kartan och sätt defaultposition (ex. centrera Sverige)
-const map = L.map('map').setView([62, 16], 5); // Stockholm som default
-
-     // Openstreetmap tiles
+     
      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
      }).addTo(map);
-// Lägg till tile layer (OpenStreetMap)
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
