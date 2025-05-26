@@ -1,18 +1,17 @@
-/* ---------- Bas-variabler och reset ---------- */
 :root {
     /* Färger */
-    --background-color: #121212;
-    --chat-bg: #1e1e1e;
+    --background-color: lightblue;
+    --chat-bg: lightblue;
     --chat-border: #444;
     --user-msg-bg: #0056b3;
     --user-msg-color: white;
-    --ai-msg-bg: #333;
+    --ai-msg-bg: orange;
     --ai-msg-color: white;
     --button-bg: #0056b3;
     --button-color: white;
-    --header-bg: #1e1e1e;
-    --input-bg: #2b2b2b;
-    --input-border: #555;
+    --header-bg: #34c3eb;
+    --input-bg: orange;
+    --input-border: #0056b3 ;
     --input-text: white;
     color: white;
   }
@@ -23,7 +22,7 @@
     box-sizing: border-box;
   }
   
-  /* ---------- Body ---------- */
+  /* Body */
   body {
     font-family: Arial, sans-serif;
     height: 100vh;
@@ -33,7 +32,7 @@
     flex-direction: column;
   }
   
-  /* ---------- Header ---------- */
+  /* Header */
   header {
     width: 100%;
     display: flex;
@@ -41,7 +40,7 @@
     align-items: center; 
     padding: 15px 20px;
     background: var(--header-bg);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px lightblue;
   }
   
   .logga {
@@ -50,9 +49,11 @@
     float:right;  
   }
 
-  .logo {
+  a {
     font-size: 24px;
     font-weight: bold;
+    color: white;
+    text-decoration: none;
   }
   
   nav ul {
@@ -67,11 +68,11 @@
     font-weight: bold;
   }
   
-  /* ---------- Container (main) ---------- */
+  /* Containern */
   .container {
     display: flex;
     width: 100%;
-    height: calc(100vh - 60px); /* 60px = header-höjd (ca) */
+    height: calc(100vh - 60px); 
     background: var(--chat-bg);
     overflow: hidden; /* förhindra scrollbars */
   }
