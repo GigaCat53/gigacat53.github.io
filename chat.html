@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolycka - Travel Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+</head>
+<body id="bas">
+  <header>  
+    <div class="logo">
+      <a href="index.html">Bolycka</a> 
+      <img class ="logga" src="bilder/Bolycka.png">
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="info.html">Info</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="Affärsidé.html">Affärsidé</a></li>
+        <li><a href="chat.html">Chat-Bot</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Karta -->
+    <div id="map"></div>
+
+    <!-- Chat -->
+    <div id="chat">
+      <div id="chat-window">
+        <div class="message ai-message">
+          Hej och välkommen till Bolycka AI! 👋 <br>
+
+Jag är din personliga assistent som hjälper dig att hitta den perfekta staden att bo i – helt baserat på dina önskemål och livsstil. <br>
+
+Berätta vad som är viktigt för dig: kanske gillar du varma somrar, närhet till naturen, goda jobbmöjligheter eller ett rikt kulturliv? Jag väger in en mängd öppna data som temperatur, medellön, badstränder, skidspår och mycket mer – allt för att matcha dina preferenser med rätt plats. <br>
+
+När du är redo, skriv bara vad du letar efter i en plats att bo på – så börjar vi!
+        </div>
+      </div>
+      <div id="chat-input-container">
+        <label for="image-upload" class="upload-btn">+</label>
+        <input type="file" id="image-upload" accept="image/*" />
+        <textarea id="chat-input" placeholder="Type your message..." rows="1"></textarea>
+        <button id="send-button">▶</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+  <script src="googlemaps.js"></script>
+</body>
+</html>
