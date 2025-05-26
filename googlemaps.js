@@ -95,12 +95,22 @@ if (navigator.geolocation) {
       }
   
       const data = await response.json();
+
       if (data.choices && data.choices.length > 0) {
         const aiResponse = data.choices[0].message.content;
+      
+        // Visa AI:s svar i chatten
         chatWindow.innerHTML += `<div class="message ai-message">${aiResponse}</div>`;
+      
+        const placeMatch = aiResponse.match(/(?:i|till|är|ligger i)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/);
+        if (placeMatch && placeMatch[1]) {
+          const placeName = placeMatch[1].trim(); // Extrahera platsnamnet
+          locatePlaceOnMap(placeName);
+        }
       } else {
-        throw new Error("Tomt svar från AI:n");
+        throw new Error("Tomt svar från AI:n"); // Om AI inte ger något svar
       }
+      
 
       // Försök hitta ett ortsnamn i svaret (första ord med stor bokstav som exempel)
       const placeMatch = aiResponse.match(/(?:i|till|är|ligger i)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/);
