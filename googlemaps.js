@@ -74,8 +74,8 @@ if (navigator.geolocation) {
     chatInput.style.height = '40px';
   
     // Anropa OpenAI API via Azure
-    const azureUrl = "https://simon-m7ac1dfj-eastus2.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview";
-    const apiKey = "Dsjf0r3JoyJ0NpHv4h19nwOGaM6jpj3CsynXkHVR4Ly90AWU8W2oJQQJ99BBACHYHv6XJ3w3AAAAACOGYTOV"; // Byt ut mot din riktiga API-nyckel
+    const azureUrl = "https://borisaicog.cognitiveservices.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"; // Azure OpenAI API URL
+    const apiKey = "88aSk7d0qdidY1eREIvYu70vcTEKsMEfI4oAvofWo0GxpEEZeFoEJQQJ99BEACfhMk5XJ3w3AAAAACOG3KXU"; // Api nyckel för Azure OpenAI
   
     try {
       const response = await fetch(azureUrl, {
@@ -101,7 +101,17 @@ if (navigator.geolocation) {
       } else {
         throw new Error("Tomt svar från AI:n");
       }
-  
+      // Sätt AI-svar i chatten
+      const aiResponse = data.choices[0].message.content;
+      chatWindow.innerHTML += `<div class="message ai-message">${aiResponse}</div>`;
+
+      // Försök hitta ett ortsnamn i svaret (första ord med stor bokstav som exempel)
+      const placeMatch = aiResponse.match(/(?:i|till|är|ligger i)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/);
+      if (placeMatch && placeMatch[1]) {
+        const placeName = placeMatch[1].trim();
+        locatePlaceOnMap(placeName);
+      }
+
       chatWindow.scrollTop = chatWindow.scrollHeight;
     } catch (error) {
       chatWindow.innerHTML += `<div class="message ai-message error">Fel vid API-anrop: ${error.message}</div>`;
@@ -120,5 +130,26 @@ if (navigator.geolocation) {
       chatWindow.innerHTML += `<div class="message user-message">📎 ${file.name}</div>`;
     }
   });
+
+  async function locatePlaceOnMap(placeName) {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}`);
+      const data = await response.json();
+  
+      if (data.length > 0) {
+        const lat = parseFloat(data[0].lat);
+        const lon = parseFloat(data[0].lon);
+  
+        // Flytta kartan och lägg till markör
+        map.setView([lat, lon], 12);
+        L.marker([lat, lon]).addTo(map).bindPopup(`📍 ${placeName}`).openPopup();
+      } else {
+        console.warn('Platsen kunde inte hittas:', placeName);
+      }
+    } catch (error) {
+      console.error('Fel vid geokodning:', error);
+    }
+  }
+  
 
   
