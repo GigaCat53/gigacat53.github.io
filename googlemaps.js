@@ -101,9 +101,6 @@ if (navigator.geolocation) {
       } else {
         throw new Error("Tomt svar från AI:n");
       }
-      // Sätt AI-svar i chatten
-      const aiResponse = data.choices[0].message.content;
-      chatWindow.innerHTML += `<div class="message ai-message">${aiResponse}</div>`;
 
       // Försök hitta ett ortsnamn i svaret (första ord med stor bokstav som exempel)
       const placeMatch = aiResponse.match(/(?:i|till|är|ligger i)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/);
