@@ -268,3 +268,254 @@
     margin: 0 5px 20px;
   }
 }
+/* Nya stilar för det uppdaterade innehållet */
+
+/* Gemensamma stilar */
+.hero-section {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, var(--header-bg), var(--button-bg));
+  border-radius: 10px;
+  color: white;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: var(--ai-msg-bg);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #e69500;
+  transform: translateY(-2px);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 3rem 0;
+}
+
+.feature-card {
+  background: orange;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  color: var(--button-bg);
+  margin-bottom: 0.5rem;
+}
+
+.how-it-works {
+  background-color: orange;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--button-bg);
+}
+
+.steps {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 20px;
+}
+
+.steps li {
+  margin-bottom: 1rem;
+  padding-left: 10px;
+}
+
+/* Info-sida stilar */
+.info-article {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.info-section {
+  margin-bottom: 3rem;
+  background: orange;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.data-sources {
+  columns: 2;
+  margin: 1rem 0;
+}
+
+.tech-stack {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.tech-item {
+  text-align: center;
+  margin: 1rem;
+}
+
+.tech-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.faq {
+  margin-top: 2rem;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+  color: var(--button-bg);
+  margin-bottom: 0.5rem;
+}
+
+/* Kontakt-sida stilar */
+.contact-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-form {
+  background: orange;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contact-info {
+  background: orange;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.info-item {
+  margin-bottom: 1.5rem;
+}
+
+.team-header {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Affärsidé stilar */
+.business-article {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.business-section {
+  margin-bottom: 3rem;
+  background: orange;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.solution-image {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.solution-image img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.report-download {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: var(--button-bg);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #004494;
+}
