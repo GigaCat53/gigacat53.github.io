@@ -14,10 +14,6 @@ const map = L.map('map').setView([62, 16], 5); // Stockholm som default view på
          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
      }).addTo(map);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-
 // Kolla om geolocation är tillgängligt
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -77,6 +73,20 @@ if (navigator.geolocation) {
     const azureUrl = "https://borisaicog.cognitiveservices.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"; // Azure OpenAI API URL
     const apiKey = "88aSk7d0qdidY1eREIvYu70vcTEKsMEfI4oAvofWo0GxpEEZeFoEJQQJ99BEACfhMk5XJ3w3AAAAACOG3KXU"; // Api nyckel för Azure OpenAI
   
+    body: JSON.stringify({
+    messages: [
+        {
+            role: "system",
+            content: "När du nämner en plats, ange alltid namnet som ett ensamt ord sist i meningen. Exempel: 'En bra plats är Stockholm' eller 'Jag rekommenderar Göteborg'."
+        },
+        {
+            role: "user",
+            content: userMessage
+        }
+    ],
+    max_tokens: 100
+    })
+
     try {
       const response = await fetch(azureUrl, {
         method: "POST",
@@ -102,28 +112,42 @@ if (navigator.geolocation) {
         // Visa AI:s svar i chatten
         chatWindow.innerHTML += `<div class="message ai-message">${aiResponse}</div>`;
       
-        const placeMatch = aiResponse.match(/(?:i|till|är|ligger i)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/);
-        if (placeMatch && placeMatch[1]) {
-          const placeName = placeMatch[1].trim(); // Extrahera platsnamnet
-          locatePlaceOnMap(placeName);
+        const placeMatch = extractLocationFromText(aiResponse);
+        if (placeMatch) {
+            locatePlaceOnMap(placeMatch);
         }
       } else {
         throw new Error("Tomt svar från AI:n"); // Om AI inte ger något svar
       }
       
-
-      // Försök hitta ett ortsnamn i svaret (första ord med stor bokstav som exempel)
-      const placeMatch = aiResponse.match(/(?:i|till|är|ligger i)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/);
-      if (placeMatch && placeMatch[1]) {
-        const placeName = placeMatch[1].trim();
-        locatePlaceOnMap(placeName);
-      }
-
       chatWindow.scrollTop = chatWindow.scrollHeight;
     } catch (error) {
       chatWindow.innerHTML += `<div class="message ai-message error">Fel vid API-anrop: ${error.message}</div>`;
     }
   }
+
+  function extractLocationFromText(text) {
+    // Försök hitta platser i olika format
+    const patterns = [
+        /(?:i|till|är|ligger i|rekommenderar|föreslår|plats är)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/i,
+        /(?:i\s+)([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)(?:\s+:)/
+    ];
+
+    for (const pattern of patterns) {
+        const match = text.match(pattern);
+        if (match && match[1]) {
+            return match[1].trim().replace(/[.,:!?)]+$/, ''); // Ta bort skiljetecken i slutet
+        }
+    }
+
+    // Ytterligare fall för specifika format som "En plats är Stockholm :)"
+    const explicitMatch = text.match(/(?:En plats är|Ett bra val är|Rekommenderar)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/i);
+    if (explicitMatch && explicitMatch[1]) {
+        return explicitMatch[1].trim().replace(/[.,:!?)]+$/, '');
+    }
+
+    return null;
+}
   
   // Funktion för att bifoga bilder
   attachButton.addEventListener('click', () => {
@@ -138,25 +162,35 @@ if (navigator.geolocation) {
     }
   });
 
-  async function locatePlaceOnMap(placeName) {
+async function locatePlaceOnMap(placeName) {
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}`);
-      const data = await response.json();
-  
-      if (data.length > 0) {
-        const lat = parseFloat(data[0].lat);
-        const lon = parseFloat(data[0].lon);
-  
-        // Flytta kartan och lägg till markör
-        map.setView([lat, lon], 12);
-        L.marker([lat, lon]).addTo(map).bindPopup(`📍 ${placeName}`).openPopup();
-      } else {
-        console.warn('Platsen kunde inte hittas:', placeName);
-      }
+        console.log(`Försöker hitta plats: ${placeName}`); // Debuggning
+        
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}&countrycodes=se&limit=1`);
+        const data = await response.json();
+
+        if (data.length > 0) {
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+            
+            // Ta bort tidigare markörer
+            map.eachLayer(layer => {
+                if (layer instanceof L.Marker) map.removeLayer(layer);
+            });
+
+            map.setView([lat, lon], 12);
+            L.marker([lat, lon])
+                .addTo(map)
+                .bindPopup(`📍 ${placeName}`)
+                .openPopup();
+            
+            console.log(`Plats hittad: ${placeName} (${lat}, ${lon})`); // Debuggning
+        } else {
+            console.warn(`Platsen "${placeName}" kunde inte hittas`);
+        }
     } catch (error) {
-      console.error('Fel vid geokodning:', error);
+        console.error('Fel vid geokodning:', error);
     }
-  }
-  
+}
 
   
