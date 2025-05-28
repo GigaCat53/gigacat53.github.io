@@ -7,14 +7,14 @@
     shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
   });
 
-const map = L.map('map').setView([62, 16], 5); // Stockholm som default view på kartan
+const map = L.map('map').setView([62, 16], 5); // defaultview utszoomad så man ser hela sverige.
 
      
      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
      }).addTo(map);
 
-// Kolla om geolocation är tillgängligt
+// Kolla om geolocation är tillgängligt (fungerar ej i Brave browser)
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -30,11 +30,11 @@ if (navigator.geolocation) {
                 .openPopup();
         },
         () => {
-            alert('Kunde inte hämta din plats.');
+            alert('Kunde inte hämta din plats.'); //om det inte går
         }
     );
 } else {
-    alert('Geolocation stöds inte i din webbläsare.');
+    alert('Geolocation stöds inte i din webbläsare.'); //denna fungerade inte för mig i brave
 }
 
   
@@ -53,7 +53,7 @@ if (navigator.geolocation) {
     }
   });
   
-  // Dynamiskt justera höjden på textfältet
+  // Dynamiskt justera höjden på textfältet 
   chatInput.addEventListener('input', () => {
     chatInput.style.height = 'auto';
     chatInput.style.height = Math.min(chatInput.scrollHeight, 150) + 'px';
@@ -73,6 +73,7 @@ if (navigator.geolocation) {
     const azureUrl = "https://borisaicog.cognitiveservices.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"; // Azure OpenAI API URL
     const apiKey = "88aSk7d0qdidY1eREIvYu70vcTEKsMEfI4oAvofWo0GxpEEZeFoEJQQJ99BEACfhMk5XJ3w3AAAAACOG3KXU"; // Api nyckel för Azure OpenAI
   
+    //Ger AI instruktion för att alltid nämna platsen sist så den går att zooma in och nåla fast.
     body: JSON.stringify({
     messages: [
         {
@@ -86,7 +87,7 @@ if (navigator.geolocation) {
     ],
     max_tokens: 100
     })
-
+    //ai svar
     try {
       const response = await fetch(azureUrl, {
         method: "POST",
@@ -125,7 +126,7 @@ if (navigator.geolocation) {
       chatWindow.innerHTML += `<div class="message ai-message error">Fel vid API-anrop: ${error.message}</div>`;
     }
   }
-
+  //Här nedan är mitt försök att få kartan att zooma in och nåla in platsen som presenteras av AI men jag fick aldrig till det :(
   function extractLocationFromText(text) {
     // Försök hitta platser i olika format
     const patterns = [
@@ -140,7 +141,7 @@ if (navigator.geolocation) {
         }
     }
 
-    // Ytterligare fall för specifika format som "En plats är Stockholm :)"
+    // försöker matcha vad ai kan säga
     const explicitMatch = text.match(/(?:En plats är|Ett bra val är|Rekommenderar)\s+([A-ZÅÄÖ][a-zåäöA-ZÅÄÖ\- ]+)/i);
     if (explicitMatch && explicitMatch[1]) {
         return explicitMatch[1].trim().replace(/[.,:!?)]+$/, '');
@@ -162,6 +163,7 @@ if (navigator.geolocation) {
     }
   });
 
+  //försöker hitta platsen som ai presenterar
 async function locatePlaceOnMap(placeName) {
     try {
         console.log(`Försöker hitta plats: ${placeName}`); // Debuggning
@@ -184,12 +186,12 @@ async function locatePlaceOnMap(placeName) {
                 .bindPopup(`📍 ${placeName}`)
                 .openPopup();
             
-            console.log(`Plats hittad: ${placeName} (${lat}, ${lon})`); // Debuggning
+            console.log(`Plats hittad: ${placeName} (${lat}, ${lon})`); // ifall den hittar
         } else {
-            console.warn(`Platsen "${placeName}" kunde inte hittas`);
+            console.warn(`Platsen "${placeName}" kunde inte hittas`); //hittar inte
         }
     } catch (error) {
-        console.error('Fel vid geokodning:', error);
+        console.error('Fel vid geokodning:', error);//error
     }
 }
 

@@ -77,23 +77,23 @@
     overflow: hidden; /* förhindra scrollbars */
   }
   
-  /* ---------- Map ---------- */
+  /*Karta design*/
   #map {
     flex: 1;            /* tar upp ledigt utrymme åt vänster */
     height: 100%;       /* fyller sin container */
     min-width: 300px;   /* valfri min-bredd */
   }
   
-  /* ---------- Chat ---------- */
+  /*Chat*/
   #chat {
-    flex: 2;            /* lite större utrymme åt chatten, ändra om du vill */
+    flex: 2;            /* Utrymme för chatten */
     display: flex;
     flex-direction: column;
     border-left: 1px solid var(--chat-border);
     height: 100%;
   }
   
-  /* ---------- Chat Window ---------- */
+  /*Chat Window */
   #chat-window {
     flex: 1;
     padding: 15px;
@@ -101,7 +101,7 @@
     background: var(--background-color);
   }
   
-  /* ---------- Chat Input Container ---------- */
+  /* Chat Input Container*/
   #chat-input-container {
     display: flex;
     align-items: center;
@@ -134,7 +134,7 @@
     border-color: var(--button-bg);
   }
   
-  /* ---------- Send Button ---------- */
+
   #send-button {
     padding: 10px;
     border: none;
@@ -155,7 +155,7 @@
     background: #004494;
   }
   
-  /* ---------- File Upload Button ---------- */
+   /*Egentligen helt onödig för den fungerar inte*/
   .upload-btn {
     background: var(--button-bg);
     color: white;
@@ -177,7 +177,6 @@
     display: none;
   }
   
-  /* ---------- Messages ---------- */
   .message {
     margin: 8px 0;
     padding: 12px;
@@ -190,7 +189,7 @@
   .user-message {
     background: var(--user-msg-bg);
     color: var(--user-msg-color);
-    float: right; /* Justera till höger */
+    float: right; /* ligger åt höger */
     margin-right: 10px; /* Lite marginal */
     text-align: right;
   }
@@ -198,7 +197,7 @@
   .ai-message {
     background: var(--ai-msg-bg);
     color: var(--ai-msg-color);
-    float: left; /* Justera till vänster */
+    float: left; /* ligger vänster */
     margin-left: 10px;
     text-align: left;
   }
@@ -268,10 +267,9 @@
     margin: 0 5px 20px;
   }
 }
-/* Nya stilar för det uppdaterade innehållet */
 
-/* Gemensamma stilar */
-.hero-section {
+
+.fokussida1 {
   text-align: center;
   padding: 2rem 1rem;
   margin-bottom: 2rem;
@@ -280,17 +278,18 @@
   color: white;
 }
 
-.hero-section h1 {
+.fokussida1 h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.subtitle {
+.underrubrik {
   font-size: 1.2rem;
   margin-bottom: 2rem;
 }
 
-.cta-button {
+/* Design för chatknapp. Jobbade med att försöka få en så aktiv design som möjligt.*/
+.chat-button {
   display: inline-block;
   padding: 12px 30px;
   background-color: var(--ai-msg-bg);
@@ -301,19 +300,20 @@
   transition: all 0.3s ease;
 }
 
-.cta-button:hover {
+/*En hover design för att göra knappen mer fallande för ögat när man ska klicka på den*/
+.chat-button:hover {
   background-color: #e69500;
   transform: translateY(-2px);
 }
 
-.features-grid {
+.funktioner { /*Placering på funktioner*/
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   margin: 3rem 0;
 }
 
-.feature-card {
+.funktioner2 {
   background: orange;
   padding: 1.5rem;
   border-radius: 10px;
@@ -321,46 +321,46 @@
   transition: transform 0.3s ease;
 }
 
-.feature-card:hover {
+.funktioner2:hover {            /*hover på funktionerna*/
   transform: translateY(-5px);
 }
 
-.feature-card h3 {
+.funktioner2 h3 {
   color: var(--button-bg);
   margin-bottom: 0.5rem;
 }
 
-.how-it-works {
+.how-it-works { /*Hur fungerar det design med border, padding osv*/
   background-color: orange;
   padding: 2rem;
   border-radius: 10px;
   margin-bottom: 2rem;
 }
 
-.how-it-works h2 {
+.how-it-works h2 { /*Rubrik på how it works*/
   text-align: center;
   margin-bottom: 1.5rem;
   color: var(--button-bg);
 }
 
-.steps {
-  max-width: 600px;
+.steg {
+  max-width: 600px;     
   margin: 0 auto;
   padding-left: 20px;
 }
 
-.steps li {
+.steg li {
   margin-bottom: 1rem;
   padding-left: 10px;
 }
 
 /* Info-sida stilar */
-.info-article {
+.om {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.info-section {
+.info {
   margin-bottom: 3rem;
   background: orange;
   padding: 1.5rem;
@@ -396,11 +396,11 @@
   margin-top: 2rem;
 }
 
-.faq-item {
+.faqs {
   margin-bottom: 1.5rem;
 }
 
-.faq-item h3 {
+.faqs h3 {
   color: var(--button-bg);
   margin-bottom: 0.5rem;
 }
@@ -411,14 +411,14 @@
   margin: 0 auto;
 }
 
-.contact-grid {
+.contact {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
 @media (max-width: 768px) {
-  .contact-grid {
+  .contact-form {
     grid-template-columns: 1fr;
   }
 }
@@ -478,29 +478,29 @@
 }
 
 /* Affärsidé stilar */
-.business-article {
+.rubriken {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.business-section {
+.business {
   margin-bottom: 3rem;
   background: orange;
   padding: 1.5rem;
   border-radius: 8px;
 }
 
-.solution-image {
+.lösning-image {
   text-align: center;
   margin: 1.5rem 0;
 }
 
-.solution-image img {
+.lösning-image img {
   max-width: 100%;
   border-radius: 8px;
 }
 
-.report-download {
+.rapport-download {
   text-align: center;
   margin-top: 3rem;
 }
